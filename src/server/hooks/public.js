@@ -1,5 +1,5 @@
-import { API } from "@/server/config/config";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
+import { API } from "@/config/config";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const publics = createApi({
   reducerPath: "public",

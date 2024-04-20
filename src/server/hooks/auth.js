@@ -1,12 +1,16 @@
-import { API } from "@/config/config";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
+import { API, JSONGET, JSONNOTGET } from "@/config/config";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const auth = createApi({
-  reducerPath: "api",
+  reducerPath: "auth",
   baseQuery: fetchBaseQuery({ baseUrl: API }),
   endpoints: (builder) => ({
     fetchGoogleLogin: builder.query({
-      query: () => `/users/google`,
+      query: () => ({
+        url: `/users/google`,
+        method: "GET",
+        headers: JSONGET,
+      }),
     }),
     fetchGoogleLoginCallback: builder.query({
       query: () => `/users/google/callback`,
@@ -23,82 +27,104 @@ export const auth = createApi({
     fetchVerifyUserEmail: builder.query({
       query: (verificationToken) => `/users/verify-email/${verificationToken}`,
     }),
-    registerUsers: builder.mutation({
+    postRegisterUsers: builder.mutation({
       query: (data) => ({
         url: `/users/register`,
         method: "POST",
         body: data,
+        headers: JSONNOTGET,
       }),
-      loginUsers: builder.mutation({
-        query: (data) => ({
-          url: `/users/login`,
-          method: "POST",
-          body: data,
-        }),
+    }),
+    postLoginUsers: builder.mutation({
+      query: (data) => ({
+        url: `/users/login`,
+        method: "POST",
+        body: data,
+        headers: JSONNOTGET,
       }),
-      logoutUsers: builder.mutation({
-        query: (data) => ({
-          url: `/users/logout`,
-          method: "POST",
-          body: data,
-        }),
+    }),
+    postLogoutUsers: builder.mutation({
+      query: (data) => ({
+        url: `/users/logout`,
+        method: "POST",
+        body: data,
+        headers: JSONNOTGET,
       }),
-      refreshTokenUsers: builder.mutation({
-        query: (data) => ({
-          url: `/users/refresh-token`,
-          method: "POST",
-          body: data,
-        }),
+    }),
+    postRefreshTokenUsers: builder.mutation({
+      query: (data) => ({
+        url: `/users/refresh-token`,
+        method: "POST",
+        body: data,
+        headers: JSONNOTGET,
       }),
-      assignRoleUsers: builder.mutation({
-        query: (data) => ({
-          url: `/users/assign-role/{userId}`,
-          method: "POST",
-          body: data,
-        }),
+    }),
+    postAssignRoleUsers: builder.mutation({
+      query: (data) => ({
+        url: `/users/assign-role/{userId}`,
+        method: "POST",
+        body: data,
+        headers: JSONNOTGET,
       }),
-      resendEmailVerification: builder.mutation({
-        query: (data) => ({
-          url: `/users/resend-email-verification`,
-          method: "POST",
-          body: data,
-        }),
+    }),
+    postResendEmailVerification: builder.mutation({
+      query: (data) => ({
+        url: `/users/resend-email-verification`,
+        method: "POST",
+        body: data,
+        headers: JSONNOTGET,
       }),
-      changeCurrentPassword: builder.mutation({
-        query: (data) => ({
-          url: `/users/change-password`,
-          method: "POST",
-          body: data,
-        }),
+    }),
+    postChangeCurrentPassword: builder.mutation({
+      query: (data) => ({
+        url: `/users/change-password`,
+        method: "POST",
+        body: data,
+        headers: JSONNOTGET,
       }),
-      forgotPasswordRequest: builder.mutation({
-        query: (data) => ({
-          url: `/users/forgot-password`,
-          method: "POST",
-          body: data,
-        }),
+    }),
+    postForgotPasswordRequest: builder.mutation({
+      query: (data) => ({
+        url: `/users/forgot-password`,
+        method: "POST",
+        body: data,
+        headers: JSONNOTGET,
       }),
-      resetForgottenPassword: builder.mutation({
-        query: ({ data, resetToken }) => ({
-          url: `/users/reset-password/${resetToken}`,
-          method: `POST`,
-          body: data,
-        }),
+    }),
+    postResetForgottenPassword: builder.mutation({
+      query: ({ data, resetToken }) => ({
+        url: `/users/reset-password/${resetToken}`,
+        method: `POST`,
+        body: data,
+        headers: JSONNOTGET,
       }),
-      updatedAvatar: builder.mutation({
-        query: (data) => ({
-          url: `/users/updated-avatar`,
-          method: "PATCH",
-          body: data,
-        }),
+    }),
+    postUpdatedAvatar: builder.mutation({
+      query: (data) => ({
+        url: `/users/updated-avatar`,
+        method: "PATCH",
+        body: data,
+        headers: JSONNOTGET,
       }),
     }),
   }),
 });
 
 export const {
-  useFetchPostsQuery,
-  useFetchUsersQuery,
-  useCreatePostMutation,
-  useFetchPostByIdQuery,
+  useFetchGoogleLoginQuery,
+  useFetchGoogleLoginCallbackQuery,
+  useFetchGithubLoginQuery,
+  useFetchGithubLoginCallbackQuery,
+  useFetchLoggedUserQuery,
+  useFetchVerifyUserEmailQuery,
+  usePostRegisterUsersMutation,
+  usePostLoginUsersMutation,
+  usePostLogoutUsersMutation,
+  usePostRefreshTokenUsersMutation,
+  usePostAssignRoleUsersMutation,
+  usePostResendEmailVerificationMutation,
+  usePostChangeCurrentPasswordMutation,
+  usePostForgotPasswordRequestMutation,
+  usePostResetForgottenPasswordMutation,
+  usePostUpdatedAvatarMutation,
 } = auth;
