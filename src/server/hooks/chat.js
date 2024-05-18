@@ -1,6 +1,11 @@
 import { API, JSONGET, JSONNOTGET } from "@/config/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// export const getJobs = (activeFilter) => {
+//   const queryString = QueryString.parse(removeEmptyAttributes(activeFilter));
+//   return api.get(handlers, { params: { ...queryString } });
+// };
+
 export const chats = createApi({
   reducerPath: "chats",
   baseQuery: fetchBaseQuery({ baseUrl: API }),

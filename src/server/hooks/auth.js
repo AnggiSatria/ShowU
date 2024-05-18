@@ -1,5 +1,23 @@
 import { API, JSONGET, JSONNOTGET } from "@/config/config";
+import { createSlice } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
+const initialState = {
+  auth: "",
+};
+
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    REFETCH_GOOGLE: (state, action) => {
+      return {
+        ...state,
+        user_google: action.payload,
+      };
+    },
+  },
+});
 
 export const auth = createApi({
   reducerPath: "auth",
@@ -109,6 +127,10 @@ export const auth = createApi({
     }),
   }),
 });
+
+export const selectAuth = (state) => state.auth;
+
+export default authSlice.reducer;
 
 export const {
   useFetchGoogleLoginQuery,
